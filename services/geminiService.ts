@@ -16,7 +16,7 @@ export async function analyzeDocument(base64DataUrl: string): Promise<string> {
       contents: [
         {
           parts: [
-            { text: "Briefly describe the contents of this long document image. Is it a webpage, a chat, or a technical document? Mention if there are natural section breaks. Keep it under 40 words." },
+            { text: "简要描述这张长图的内容。它是网页、聊天记录还是技术文档？是否包含自然的章节分割？请用中文回答，字数控制在40字以内。" },
             { 
               inlineData: {
                 mimeType: "image/jpeg",
@@ -32,9 +32,9 @@ export async function analyzeDocument(base64DataUrl: string): Promise<string> {
       }
     });
 
-    return response.text || "Analyzed document structure.";
+    return response.text || "正在分析文档结构。";
   } catch (error) {
     console.error("Gemini Analysis Error:", error);
-    return "Ready to convert your document.";
+    return "准备好转换您的文档。";
   }
 }

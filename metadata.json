@@ -1,5 +1,5 @@
 {
-  "name": "LongImgToPDF - Smart Multi-page PDF Converter",
-  "description": "A professional tool to convert long images and screenshots into perfectly formatted multi-page PDF files for easy printing and sharing. Features AI-powered content analysis to optimize document structure.",
+  "name": "长图转PDF - 智能多页转换工具",
+  "description": "一款专业的长图转换工具，可将长图和屏幕截图完美转换为适合打印和分享的多页 PDF 文件。支持 AI 智能内容分析，优化文档结构。",
   "requestFramePermissions": []
 }

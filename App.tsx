@@ -116,14 +116,14 @@ const App: React.FC = () => {
           <div className="bg-blue-600 p-2 rounded-lg">
             <Layout className="text-white w-5 h-5" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-800">LongToPDF</h1>
+          <h1 className="text-xl font-bold tracking-tight text-slate-800">长图转PDF</h1>
         </div>
         <div className="flex items-center gap-4">
           {image && (
             <button 
               onClick={reset}
               className="p-2 hover:bg-red-50 text-red-500 rounded-full transition-colors"
-              title="Clear current image"
+              title="清除当前图片"
             >
               <Trash2 className="w-5 h-5" />
             </button>
@@ -138,7 +138,7 @@ const App: React.FC = () => {
             }`}
           >
             {isGenerating ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-            {isGenerating ? 'Generating...' : 'Download PDF'}
+            {isGenerating ? '生成中...' : '下载 PDF'}
           </button>
         </div>
       </header>
@@ -151,9 +151,9 @@ const App: React.FC = () => {
               <div className="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                 <FileUp className="w-10 h-10 text-blue-600" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Upload your long image</h2>
+              <h2 className="text-2xl font-bold mb-2">上传您的长图</h2>
               <p className="text-slate-500 mb-8">
-                Convert long screenshots, web captures, or documents into printable multi-page PDFs automatically.
+                自动将长截图、网页截图或文档图片转换为可完美打印的多页 PDF 文件。
               </p>
               <input 
                 type="file" 
@@ -166,14 +166,14 @@ const App: React.FC = () => {
                 onClick={() => fileInputRef.current?.click()}
                 className="bg-slate-900 text-white px-8 py-3 rounded-xl font-medium hover:bg-slate-800 transition-colors"
               >
-                Select Image
+                选择图片
               </button>
             </div>
             <div className="mt-12 grid grid-cols-3 gap-6">
               {[
-                { icon: Printer, title: 'Print Ready', desc: 'Sized for A4/Letter' },
-                { icon: FileText, title: 'Multi-page', desc: 'Automatic splitting' },
-                { icon: Sparkles, title: 'AI Enhanced', desc: 'Smart section analysis' }
+                { icon: Printer, title: '打印就绪', desc: '适配 A4/Letter 纸张' },
+                { icon: FileText, title: '自动分页', desc: '智能切分长图内容' },
+                { icon: Sparkles, title: 'AI 增强', desc: '智能内容结构分析' }
               ].map((item, idx) => (
                 <div key={idx} className="p-4">
                   <item.icon className="w-6 h-6 text-slate-400 mx-auto mb-2" />
@@ -191,11 +191,11 @@ const App: React.FC = () => {
               <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
                   <Settings className="w-4 h-4 text-slate-600" />
-                  <span className="font-semibold text-sm uppercase tracking-wider text-slate-500">Document Settings</span>
+                  <span className="font-semibold text-sm uppercase tracking-wider text-slate-500">文档设置</span>
                 </div>
                 <div className="p-6 space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Page Size</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">页面尺寸</label>
                     <div className="grid grid-cols-1 gap-2">
                       {Object.values(PageSize).map(size => (
                         <button
@@ -215,19 +215,22 @@ const App: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Orientation</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">页面方向</label>
                     <div className="flex gap-2 p-1 bg-slate-100 rounded-xl">
-                      {Object.values(Orientation).map(orient => (
+                      {[
+                        { key: Orientation.Portrait, label: '纵向' },
+                        { key: Orientation.Landscape, label: '横向' }
+                      ].map(orient => (
                         <button
-                          key={orient}
-                          onClick={() => handleOptionChange({ orientation: orient })}
-                          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all capitalize ${
-                            options.orientation === orient 
+                          key={orient.key}
+                          onClick={() => handleOptionChange({ orientation: orient.key })}
+                          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+                            options.orientation === orient.key 
                             ? 'bg-white text-blue-600 shadow-sm' 
                             : 'text-slate-500 hover:text-slate-700'
                           }`}
                         >
-                          {orient}
+                          {orient.label}
                         </button>
                       ))}
                     </div>
@@ -235,7 +238,7 @@ const App: React.FC = () => {
 
                   <div>
                     <div className="flex justify-between mb-2">
-                      <label className="text-sm font-medium text-slate-700">Margin (mm)</label>
+                      <label className="text-sm font-medium text-slate-700">页边距 (mm)</label>
                       <span className="text-xs text-slate-400">{options.margin}mm</span>
                     </div>
                     <input 
@@ -251,7 +254,7 @@ const App: React.FC = () => {
 
                   <div>
                     <div className="flex justify-between mb-2">
-                      <label className="text-sm font-medium text-slate-700">Export Quality</label>
+                      <label className="text-sm font-medium text-slate-700">导出质量</label>
                       <span className="text-xs text-slate-400">{Math.round(options.quality * 100)}%</span>
                     </div>
                     <input 
@@ -271,7 +274,7 @@ const App: React.FC = () => {
               <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 border border-blue-100">
                 <div className="flex items-center gap-2 mb-3 text-blue-700">
                   <Sparkles className="w-5 h-5" />
-                  <h3 className="font-bold">AI Insights</h3>
+                  <h3 className="font-bold">AI 洞察</h3>
                 </div>
                 {aiAnalysis ? (
                   <p className="text-sm text-blue-800/80 leading-relaxed italic">
@@ -280,7 +283,7 @@ const App: React.FC = () => {
                 ) : (
                   <div className="flex items-center gap-2 text-blue-400 text-sm">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Analyzing content...
+                    正在分析内容...
                   </div>
                 )}
               </div>
@@ -292,20 +295,20 @@ const App: React.FC = () => {
                 {isProcessing ? (
                   <div className="flex flex-col items-center justify-center h-full gap-4 text-slate-500">
                     <Loader2 className="w-12 h-12 animate-spin text-blue-600" />
-                    <p className="font-medium">Slicing document into pages...</p>
+                    <p className="font-medium">正在分割文档页面...</p>
                   </div>
                 ) : (
                   pages.map((page, idx) => (
                     <div key={idx} className="relative group">
                       <div className="absolute -top-6 left-0 flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-widest">
-                        <span>Page {idx + 1}</span>
+                        <span>第 {idx + 1} 页</span>
                         <ChevronRight className="w-3 h-3" />
                         <span>{options.pageSize}</span>
                       </div>
                       <div className="bg-white shadow-2xl transition-transform duration-300 group-hover:scale-[1.01]">
                         <img 
                           src={page.dataUrl} 
-                          alt={`Page ${idx + 1}`}
+                          alt={`第 ${idx + 1} 页`}
                           className="max-w-full h-auto block"
                           style={{
                             width: options.orientation === Orientation.Portrait ? '595px' : '842px'
@@ -318,7 +321,7 @@ const App: React.FC = () => {
               </div>
               
               <div className="flex justify-center text-slate-500 text-sm italic">
-                {pages.length} pages total • {metadata?.width}x{metadata?.height}px source
+                共 {pages.length} 页 • 源图尺寸 {metadata?.width}x{metadata?.height}px
               </div>
             </section>
           </div>
